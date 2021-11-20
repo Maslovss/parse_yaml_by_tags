@@ -52,7 +52,8 @@ def parse_yaml_by_tags(
     outfile: str = typer.Argument(..., help="Output file"), 
     include_tags: str = typer.Option("", help="Include tags separated with commas"), 
     exclude_tags: str = typer.Option("", help="Exclude tags separated with commas"),
-    force: bool = typer.Option(False, help="Overrite without prompt if exists outfile ")
+    force: bool = typer.Option(False, help="Overrite without prompt if exists outfile "),
+    remove_tags: bool = typer.Option(False, help="Remove all tags on exporting to outfile")
     ):
     '''
     Parse YAML files by tags
@@ -88,6 +89,8 @@ def parse_yaml_by_tags(
                 if len(include_tags_set.intersection( set(item['tags']))) == 0 \
                    and len(include_tags_set) > 0:
                     to_remove.insert(0, idx)
+            if remove_tags:
+                del item['tags']
         else:
             #If no tags and have some include tags - remove
             if "WITHOUT-TAGS" not in include_tags_set:
