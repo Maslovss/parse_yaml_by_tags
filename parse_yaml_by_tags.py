@@ -78,14 +78,14 @@ def parse_yaml_by_tags(
             
     to_remove = []
     for idx, item in enumerate(data):
-        if "tag" in item:
+        if "tags" in item:
             #if element have exclude tags - remove
             #first prior
-            if len(exclude_tags_set.intersection( set(item['tag']))) > 0:
+            if len(exclude_tags_set.intersection( set(item['tags']))) > 0:
                 to_remove.insert(0, idx)
             else:
                 #if element dont have include tags - remove
-                if len(include_tags_set.intersection( set(item['tag']))) == 0 \
+                if len(include_tags_set.intersection( set(item['tags']))) == 0 \
                    and len(include_tags_set) > 0:
                     to_remove.insert(0, idx)
         else:
